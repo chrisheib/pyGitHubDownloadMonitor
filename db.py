@@ -36,15 +36,16 @@ def create_tables(conn):
     if conn is not None:
 
         sql_create_files_table = """ CREATE TABLE IF NOT EXISTS files (
-                                            id integer PRIMARY KEY,
                                             name text NOT NULL,
-                                            version text NOT NULL
+                                            version text NOT NULL,
+                                            UNIQUE(name,version)
                                         ); """
 
         sql_create_data_table = """ CREATE TABLE IF NOT EXISTS data (
                                             filesID integer NOT NULL,
                                             date text NOT NULL,
-                                            count integer NOT NULL
+                                            count integer NOT NULL,
+                                            UNIQUE(filesID,date)
                                         ); """
 
         create_table(conn, sql_create_files_table)
@@ -57,9 +58,15 @@ def select(conn, sql, args=None):
     cur.execute(sql, args)
     return cur.fetchall()
 
-def exists(conn, sql):
-    rows = select(conn,sql)
+def ReadValue(conn, table, field, where="1=1", args=None):
+    row = select(conn, "SELECT " + field + " FROM " + table + " WHERE " + where + " LIMIT 1", args)[0]
+    return row[0]
+
+def exists(conn, sql, args=None):
+    rows = select(conn,sql,args)
     return len(rows) > 0
 
 def add_data(conn, date, filename, version, count):
-    pass
+    select(conn, "INSERT OR IGNORE INTO files (name, version) values (?,?)", [filename, version])
+    filesID = ReadValue(conn, "files", "ROWID", "name = ? and version = ?", [filename, version])
+    select(conn, "INSERT OR REPLACE INTO data (filesID, date, count) VALUES (?,?,?)", [filesID, date, count])
