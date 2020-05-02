@@ -1,6 +1,7 @@
 import DLHT_db as db
 import DLHT_config as conf
 import DLHT_api as api
+import DLHT_plot as plot
 from datetime import date, datetime
 
 if __name__ == "__main__":
@@ -15,3 +16,4 @@ if __name__ == "__main__":
             db.add_data(conn, datetime.today().strftime('%Y-%m-%d'), asset["name"], release["name"], asset["download_count"])
 
     conn.commit()
+    plot.CreateGraph(conn)
