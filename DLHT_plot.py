@@ -16,11 +16,18 @@ def CreateGraph(connection):
         data1 = []
         data2 = []
         finalDL = 0
+        lastDL = 0
         for entry in data:
+            lastDL = finalDL
             data1.append(entry[0])
             data2.append(entry[1])
             finalDL = entry[1]
-        plotdata.append([data1,data2,row[1] + ' ' + row[2] + ': ' + str(finalDL)])
+
+        dlDelta = finalDL - lastDL
+        deltastring = ""
+        if (dlDelta > 0):
+            deltastring = " (+" + str(dlDelta) + ")"
+        plotdata.append([data1,data2,row[1] + ' ' + row[2] + ': ' + str(finalDL) + deltastring])
 
     for line in plotdata:
         ax.plot(line[0],line[1],label=line[2])
@@ -31,6 +38,10 @@ def CreateGraph(connection):
     ax.set_title(name+'/'+repo)
 
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(color='gray', linestyle='dashed')
+    ax.xaxis.grid(color='gray', linestyle='dashed')
 
     plt.savefig('foo.png', bbox_inches='tight')
     plt.show()
