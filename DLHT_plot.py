@@ -39,7 +39,7 @@ def CreateGraph(connection):
 
     # Find total:
 
-    result = connection.execute('SELECT count FROM data LEFT JOIN files on filesID = files.ROWID WHERE version = "total" ORDER BY date DESC limit 2')
+    result = connection.execute('SELECT * FROM (SELECT count, date FROM data LEFT JOIN files on filesID = files.ROWID WHERE version = "total" ORDER BY date DESC limit 2) ORDER BY date')
     total = 0
     lastTotal = 0
     for row in result:
