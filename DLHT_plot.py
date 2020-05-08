@@ -38,7 +38,6 @@ def CreateGraph(connection):
     name, repo = conf.getRepoData()
 
     # Find total:
-
     result = connection.execute('SELECT * FROM (SELECT count, date FROM data LEFT JOIN files on filesID = files.ROWID WHERE version = "total" ORDER BY date DESC limit 2) ORDER BY date')
     total = 0
     lastTotal = 0
@@ -57,6 +56,8 @@ def CreateGraph(connection):
     ax.set_axisbelow(True)
     ax.yaxis.grid(color='gray', linestyle='dashed')
     ax.xaxis.grid(color='gray', linestyle='dashed')
+    _, x2 = ax.get_xlim()
+    ax.set_xlim(max(0, x2-30), x2 - 0.2)
 
     plt.savefig('foo.png', bbox_inches='tight')
     plt.show()
