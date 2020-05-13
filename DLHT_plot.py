@@ -59,5 +59,8 @@ def CreateGraph(connection):
     _, x2 = ax.get_xlim()
     ax.set_xlim(max(0, x2-30), x2 - 0.2)
 
+    labels = ax.get_xticklabels()
+    plt.setp(labels, rotation=15, horizontalalignment='right')
+
     plt.savefig('foo.png', bbox_inches='tight')
     plt.show()
