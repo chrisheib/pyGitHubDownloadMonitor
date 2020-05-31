@@ -1,12 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import sqlite3
 import DLHT_db as db
 import DLHT_config as conf
+from datetime import datetime
 
 def CreateGraph(connection):
-    plt.figure(figsize=[15,6])
+    fig = plt.figure(figsize=[15,6])
     ax = plt.subplot2grid((1, 3), (0, 0), colspan=2)
+
+    dateformat = "%Y-%m-%d"
 
     # Get Plotdata
     plotdata = []
@@ -19,7 +23,7 @@ def CreateGraph(connection):
         lastDL = 0
         for entry in data:
             lastDL = finalDL
-            data1.append(entry[0])
+            data1.append(datetime.strptime(entry[0], dateformat))
             data2.append(entry[1])
             finalDL = entry[1]
 
@@ -59,8 +63,11 @@ def CreateGraph(connection):
     _, x2 = ax.get_xlim()
     ax.set_xlim(max(0, x2-30), x2 - 0.2)
 
+    ax.xaxis_date()
+    fig.autofmt_xdate()
+
     labels = ax.get_xticklabels()
     plt.setp(labels, rotation=15, horizontalalignment='right')
 
-    plt.savefig('foo.png', bbox_inches='tight')
+    plt.savefig('foo.svg', bbox_inches='tight')
     plt.show()
