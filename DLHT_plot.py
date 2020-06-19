@@ -69,6 +69,6 @@ def CreateGraph(connection):
     labels = ax.get_xticklabels()
     plt.setp(labels, rotation=15, horizontalalignment='right')
 
-    plt.savefig('foo.svg', bbox_inches='tight')
+    plt.savefig(conf.ExePath('foo.svg'), bbox_inches='tight')
     if conf.ShowPicture():
         plt.show()

@@ -6,7 +6,7 @@ from datetime import date, datetime
 
 if __name__ == "__main__":
 
-    conn = db.create_connection(r"pythonsqlite.db")
+    conn = db.create_connection(conf.ExePath('pythonsqlite.db'))
     db.create_tables(conn)
     print("Get release list...")
     response = api.getReleaseList()
