@@ -53,7 +53,7 @@ def CreateGraph(connection):
     if (deltaTotal > 0):
         deltastring = " (+" + str(deltaTotal) + ")"
 
-    ax.set_title(name+'/'+repo + ": " + str(total) + deltastring)
+    ax.set_title(name+'/'+repo + ": " + str(total) + deltastring + " \n(" + datetime.now().strftime("%d.%m.%Y %H:%M") + ")")
 
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 
