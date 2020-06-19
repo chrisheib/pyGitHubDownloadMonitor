@@ -61,7 +61,7 @@ def CreateGraph(connection):
     ax.yaxis.grid(color='gray', linestyle='dashed')
     ax.xaxis.grid(color='gray', linestyle='dashed')
     _, x2 = ax.get_xlim()
-    ax.set_xlim(max(0, x2-30), x2 - 0.2)
+    ax.set_xlim(max(0, x2-30), max(x2 - 2,2))
 
     ax.xaxis_date()
     fig.autofmt_xdate()
@@ -70,4 +70,5 @@ def CreateGraph(connection):
     plt.setp(labels, rotation=15, horizontalalignment='right')
 
     plt.savefig('foo.svg', bbox_inches='tight')
-    plt.show()
+    if conf.ShowPicture():
+        plt.show()

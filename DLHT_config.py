@@ -10,3 +10,9 @@ def getRepoData():
     config.read('conf.ini')
     data = config["GitHub"]
     return data["Username"], data["RepositoryName"]
+
+def ShowPicture():
+    config = configparser.ConfigParser()
+    config.read('conf.ini')
+    data = config["Settings"]
+    return data["OpenPictureOnRun"] == "True"
