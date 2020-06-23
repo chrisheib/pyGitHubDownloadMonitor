@@ -61,7 +61,8 @@ def CreateGraph(connection):
     ax.yaxis.grid(color='gray', linestyle='dashed')
     ax.xaxis.grid(color='gray', linestyle='dashed')
     _, x2 = ax.get_xlim()
-    ax.set_xlim(max(0, x2-30), max(x2 - 2,2))
+    if conf.CropToOneMonth():
+        ax.set_xlim(max(0, x2-30), max(x2 - 2,2))
 
     ax.xaxis_date()
     fig.autofmt_xdate()

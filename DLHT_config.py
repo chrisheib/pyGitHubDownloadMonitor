@@ -7,19 +7,25 @@ def ExePath(file):
     else:
         return os.path.dirname(os.path.abspath(__file__))+'/'
 
-def getApiKey():
-    config = configparser.ConfigParser()
-    config.read(ExePath('conf.ini'))
-    return config["GitHub"]["APIKey"]
+def configRead(section, key, default=''):
+    try:
+        config = configparser.ConfigParser()
+        config.read(ExePath('conf.ini'))
+        return config[section][key]
+    except:
+        return default
+
+def configReadBool(section, key, default=False):
+    if configRead(section, key, str(default)).lower() == "true":
+        return True
+    else:
+        return False
 
 def getRepoData():
-    config = configparser.ConfigParser()
-    config.read(ExePath('conf.ini'))
-    data = config["GitHub"]
-    return data["Username"], data["RepositoryName"]
+    return configRead("GitHub","Username"), configRead("GitHub","RepositoryName")
 
 def ShowPicture():
-    config = configparser.ConfigParser()
-    config.read(ExePath('conf.ini'))
-    data = config["Settings"]
-    return data["OpenPictureOnRun"] == "True"
+    return configReadBool("Settings","OpenPictureOnRun")
+
+def CropToOneMonth():
+    return configReadBool("Settings","CropToOneMonth")

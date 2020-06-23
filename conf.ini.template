@@ -1,6 +1,6 @@
 [GitHub]
-APIKey=
 Username=chrisheib
 RepositoryName=NWO-Donation-Monitor
 [Settings]
-OpenPictureOnRun=True
+OpenPictureOnRun=true
+CropToOneMonth=true

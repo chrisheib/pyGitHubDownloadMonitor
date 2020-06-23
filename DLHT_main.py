@@ -4,8 +4,7 @@ import DLHT_api as api
 import DLHT_plot as plot
 from datetime import date, datetime
 
-if __name__ == "__main__":
-
+def main():
     conn = db.create_connection(conf.ExePath('pythonsqlite.db'))
     db.create_tables(conn)
     print("Get release list...")
@@ -23,3 +22,6 @@ if __name__ == "__main__":
     print("Data stored, preparing graph...")
     plot.CreateGraph(conn)
     print("Done.")
+
+if __name__ == "__main__":
+    main()
