@@ -1,6 +1,6 @@
-*
-**/**
-
-!.gitignore
-!*.template
-!*.py
+__*
+conf.ini
+*.png
+*.svg
+*.db
+.vscode

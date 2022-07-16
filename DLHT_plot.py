@@ -39,6 +39,7 @@ def CreateGraph(connection):
 
     ax.set_ylabel('Downloads')
     ax.set_xlabel('Date')
+    ax.set_facecolor('xkcd:grey')
     name, repo = conf.getRepoData()
 
     # Find total:
@@ -55,7 +56,7 @@ def CreateGraph(connection):
 
     ax.set_title(name+'/'+repo + ": " + str(total) + deltastring + " \n(" + datetime.now().strftime("%d.%m.%Y %H:%M") + ")")
 
-    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0., facecolor='xkcd:grey', edgecolor='black')
 
     ax.set_axisbelow(True)
     ax.yaxis.grid(color='gray', linestyle='dashed')
@@ -69,7 +70,8 @@ def CreateGraph(connection):
 
     labels = ax.get_xticklabels()
     plt.setp(labels, rotation=15, horizontalalignment='right')
+    fig.patch.set(facecolor = 'xkcd:grey')
 
-    plt.savefig(conf.ExePath('foo.svg'), bbox_inches='tight')
+    plt.savefig(conf.ExePath('data/foo.svg'), bbox_inches='tight')
     if conf.ShowPicture():
         plt.show()

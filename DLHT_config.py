@@ -10,7 +10,7 @@ def ExePath(file):
 def configRead(section, key, default=''):
     try:
         config = configparser.ConfigParser()
-        config.read(ExePath('conf.ini'))
+        config.read(ExePath('data/conf.ini'))
         return config[section][key]
     except:
         return default

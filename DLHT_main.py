@@ -5,7 +5,7 @@ import DLHT_plot as plot
 from datetime import date, datetime
 
 def main():
-    conn = db.create_connection(conf.ExePath('pythonsqlite.db'))
+    conn = db.create_connection(conf.ExePath('data/pythonsqlite.db'))
     db.create_tables(conn)
     print("Get release list...")
     response = api.getReleaseList()
